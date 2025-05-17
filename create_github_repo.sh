@@ -24,7 +24,54 @@ DESCRIPTION="Swift Package for $PROJECT_NAME"
 VISIBILITY="--private"
 
 # 如果当前目录不是 git 仓库则初始化
-echo "📦 检查 git 仓库..."
+# 先生成 .gitignore（如果不存在）
+if [ ! -f .gitignore ]; then
+  cat > .gitignore <<EOF
+# Xcode
+build/
+DerivedData/
+*.xcworkspace
+!default.xcworkspace
+xcuserdata/
+*.xcuserstate
+*.moved-aside
+*.xcuserdatad
+*.xcscmblueprint
+
+# SwiftPM
+.build/
+Package.resolved
+
+# CocoaPods
+Pods/
+
+# Carthage
+Carthage/Build/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+# Archives
+*.xcarchive
+
+# Playground
+timeline.xctimeline
+playground.xcworkspace
+
+# User-specific
+*.swp
+*.swo
+*.tmp
+.DS_Store
+
+# Other
+*.orig
+EOF
+fi
+
 if [ ! -d .git ]; then
   git init
   git add .
