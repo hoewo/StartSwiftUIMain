@@ -1,3 +1,9 @@
+# 新建文件夹
+cd 到这个文件夹目录下
+```
+cd Path
+```
+
 # 初始化 Package
 ```
  curl -fsSL "https://raw.githubusercontent.com/hoewo/StartSwiftUIMain/refs/heads/main/create_package.sh" | bash
