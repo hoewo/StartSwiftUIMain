@@ -121,14 +121,15 @@ cat > ../${PROJECT_NAME}.code-workspace <<EOF
 }
 EOF
 
+cd ..
 echo "✅ $PACKAGE_NAME Swift Package 初始化完成！"
 
 # 自动用 Cursor 打开生成的 workspace 文件
 cursor "../${PROJECT_NAME}.code-workspace"
 
 # 自动创建并推送 GitHub 远程仓库
-cd ..
-bash create_github_repo.sh
 
+# bash create_github_repo.sh
+# curl -fsSL "https://raw.githubusercontent.com/hoewo/StartSwiftUIMain/refs/heads/main/create_github_repo.sh | bash
 
 
