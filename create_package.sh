@@ -20,7 +20,7 @@ SRC_DIR="Sources/$PACKAGE_NAME"
 for dir in App Utils Models Resources Services Views; do
   mkdir -p "$SRC_DIR/$dir"
   # 除App和Views外，其他目录生成与目录同名的占位swift文件
-  if [[ "$dir" != "App" && "$dir" != "Views" ]]; then
+  if [[ "$dir" != "App" && "$dir" != "Views" && "$dir" != "Resources"]]; then
     touch "$SRC_DIR/$dir/${dir}.swift"
   fi
 done
@@ -47,6 +47,7 @@ EOF
 # 5. 创建默认@main App入口
 cat > "$SRC_DIR/App/${PROJECT_NAME}App.swift" <<EOF
 import SwiftUI
+import ${PROJECT_NAME}Package
 
 @main
 struct ${PROJECT_NAME}App: App {
@@ -97,13 +98,22 @@ let package = Package(
     targets: [
         .target(
             name: "$PACKAGE_NAME",
+            exclude: [
+                "App/ProjectAApp.swift" 
+            ],
             resources: [
                 .process("Resources")
-            ]),
+            ]
+        ),
+        .executableTarget(
+            name: "${PACKAGE_NAME}App",
+            dependencies: ["$PACKAGE_NAME"], 
+            path: "Sources/$PACKAGE_NAME/App"
+        ),
         .testTarget(
             name: "${PACKAGE_NAME}Tests",
             dependencies: ["$PACKAGE_NAME"]
-        ),
+        )
     ]
 )
 EOF
