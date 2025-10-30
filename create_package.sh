@@ -17,7 +17,7 @@ swift package init --type library
 
 # 3. 创建目录结构及占位文件
 SRC_DIR="Sources/$PACKAGE_NAME"
-for dir in App Client Model Resources Share Views; do
+for dir in App Utils Models Resources Services Views; do
   mkdir -p "$SRC_DIR/$dir"
   # 除App和Views外，其他目录生成与目录同名的占位swift文件
   if [[ "$dir" != "App" && "$dir" != "Views" ]]; then
@@ -109,23 +109,23 @@ let package = Package(
 EOF
 
 # 8. 生成工作区文件
-mkdir -p ..
-cat > ../${PROJECT_NAME}.code-workspace <<EOF
-{
-	"folders": [
-		{
-			"path": "$PACKAGE_NAME"
-		}
-	],
-	"settings": {}
-}
-EOF
+# mkdir -p ..
+# cat > ../${PROJECT_NAME}.code-workspace <<EOF
+# {
+# 	"folders": [
+# 		{
+# 			"path": "$PACKAGE_NAME"
+# 		}
+# 	],
+# 	"settings": {}
+# }
+# EOF
 
 cd ..
 echo "✅ $PACKAGE_NAME Swift Package 初始化完成！"
 
 # 自动用 Cursor 打开生成的 workspace 文件
-open -a "Cursor" "${PROJECT_NAME}.code-workspace"
+# open -a "Cursor" "${PROJECT_NAME}.code-workspace"
 # 自动创建并推送 GitHub 远程仓库
 
 # bash create_github_repo.sh
