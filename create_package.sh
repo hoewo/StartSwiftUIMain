@@ -47,7 +47,6 @@ EOF
 # 5. 创建默认@main App入口
 cat > "$SRC_DIR/App/${PROJECT_NAME}App.swift" <<EOF
 import SwiftUI
-import ${PROJECT_NAME}Package
 
 @main
 struct ${PROJECT_NAME}App: App {
@@ -98,17 +97,9 @@ let package = Package(
     targets: [
         .target(
             name: "$PACKAGE_NAME",
-            exclude: [
-                "App/ProjectAApp.swift" 
-            ],
             resources: [
                 .process("Resources")
             ]
-        ),
-        .executableTarget(
-            name: "${PACKAGE_NAME}App",
-            dependencies: ["$PACKAGE_NAME"], 
-            path: "Sources/$PACKAGE_NAME/App"
         ),
         .testTarget(
             name: "${PACKAGE_NAME}Tests",
