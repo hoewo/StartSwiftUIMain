@@ -8,19 +8,21 @@ PROJECT_NAME="$(basename "$PWD")"
 PACKAGE_NAME="${PROJECT_NAME}Package"
 
 # 1. 创建主目录
-mkdir "$PACKAGE_NAME"
+mkdir -p "$PACKAGE_NAME"
 
 cd "$PACKAGE_NAME"
 
-# 2. 初始化 Swift Package
+# 2. 初始化 Swift Package（存在则跳过，保证可重复执行）
+if [ ! -f Package.swift ]; then
 swift package init --type library 
+fi
 
 # 3. 创建目录结构及占位文件
 SRC_DIR="Sources/$PACKAGE_NAME"
 for dir in App Utils Models Resources Services Views; do
   mkdir -p "$SRC_DIR/$dir"
   # 除App和Views外，其他目录生成与目录同名的占位swift文件
-  if [[ "$dir" != "App" && "$dir" != "Views" && "$dir" != "Resources"]]; then
+  if [[ "$dir" != "App" && "$dir" != "Views" && "$dir" != "Resources" ]]; then
     touch "$SRC_DIR/$dir/${dir}.swift"
   fi
 done
